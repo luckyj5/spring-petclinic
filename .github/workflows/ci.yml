@@ -35,7 +35,7 @@ jobs:
     - name: Build Docker image
       run: |
         docker build -t $DOCKER_REGISTRY_URL:$TAG .
-        docker login $DOCKER_REGISTRY_URL -u ${{ JF_USER }} -p ${{ secrets.JFROG_ACCESS_TOKEN }}
+        docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} -p ${{ secrets.JFROG_ACCESS_TOKEN }}
 
     - name: Push Docker Image to Docker Hub
       run: docker push $DOCKER_REGISTRY_URL:$TAG
