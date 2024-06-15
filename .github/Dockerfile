@@ -1,5 +1,4 @@
-# Dockerfile for Spring PetClinic
-# Description: Dockerfile to run the Spring PetClinic application
+# Dockerfile for Spring PetClinic application
 
 FROM openjdk:17-jdk-slim
 

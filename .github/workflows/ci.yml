@@ -1,8 +1,8 @@
-name: CI
+name: CI/CD Pipeline
 
 env:
-  DOCKER_IMAGE: spring-petclinic
-  TAG: latest
+  DOCKER_IMAGE: petclinic
+  TAG: 1.0.0
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
       run: echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login ${{secrets.DOCKER_REGISTRY_URL}} -u ${{ secrets.JF_USER }} --password-stdin || exit 1
 
     - name: Build Docker Image
-      run: docker build -t ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG . || exit 1
+      run: docker build -t ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG -f .github/Dockerfile. || exit 1
         
     - name: Push Docker Image to Artifactory
       run: docker push ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG
@@ -58,7 +58,6 @@ jobs:
         name: test-reports
         path: target/surefire-reports
       continue-on-error: true  
-
 
     - name: Cleanup
       run: |

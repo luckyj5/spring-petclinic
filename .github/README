@@ -1,0 +1,61 @@
+# Spring PetClinic GitHub Actions Workflow
+
+This repository contains a GitHub Actions workflow for the Spring PetClinic project, including Docker packaging and integration with JFrog Artifactory.
+
+## Repository Structure
+
+- **ci.yml:** Contains the Github Actions CI pipeline configuration.
+- **Dockerfile:** Defines the Docker image configuration for the Spring Pet Clinic project.
+- **README.md:** This file, explaining the project and how to run it.
+
+## CI/CD Pipeline Flow
+
+### 1. Compile the Code
+- The pipeline compiles the Spring Pet Clinic code using Maven.
+- Maven dependencies are resolved to ensure all required dependencies are available.
+
+### 2. Run Tests
+- After compiling the code, the pipeline runs tests to ensure the code functions as expected.
+- Test results are generated and stored for review.
+
+### 3. Package the Project as a Runnable Docker Image
+- Once tests pass successfully, the pipeline packages the project into a runnable Docker image.
+- The Docker image is tagged with the version or tag specified in the pipeline.
+
+### 4. Bonus: Use JFrog Artifactory
+- Integrate JFrog Artifactory into the pipeline for artifact management and storage.
+
+## Running the Project
+
+### Prerequisites
+- GitHub account and repository
+- Docker installed [https://docs.docker.com/get-docker/]
+- Maven installed [https://maven.apache.org/install.html]
+- JFrog Artifactory account [https://jfrog.com/]
+
+### Steps
+1. Fork or clone the [Spring PetClinic repository](https://github.com/luckyj5/spring-petclinic).
+2. Set up secrets in your GitHub repository for Docker registry and JFrog Artifactory.
+3. Update the `ci.yml` file with configured secrets, Docker image, repository information.
+4. Commit and push the changes to your GitHub repository.
+5. GitHub Actions will automatically trigger the workflow based on your configured triggers.
+
+
+### Running project locally
+
+1. Build the Docker image:
+   ```
+   docker build -t <docker-image> .
+   ```
+2. Run the Docker container:
+   ```
+   docker run -p 8080:8080 <docker-image>
+   ```
+3. Open your browser and navigate to `http://localhost:8080/` to access the Spring PetClinic application.
+
+
+
+## Additional Information
+
+- For more details on the Spring Pet Clinic project, refer to the official repository: [Spring Pet Clinic GitHub](https://github.com/spring-projects/spring-petclinic)
+- Refer to the GitHub Actions documentation for more details on configuring workflows: [GitHub Actions Documentation](https://docs.github.com/en/actions)
