@@ -1,7 +1,6 @@
 name: CI
 
 env:
-  DOCKER_REGISTRY_URL: luckyj5.jfrog.io/spring-petclinic-docker
   DOCKER_IMAGE: spring-petclinic
   TAG: latest
 
@@ -19,10 +18,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'adopt'
@@ -41,20 +40,20 @@ jobs:
       run: echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} --password-stdin || exit 1
 
     - name: Build Docker Image
-      run: docker build -t $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG . || exit 1
+      run: docker build -t ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG . || exit 1
         
     - name: Push Docker Image to Artifactory
-      run: docker push $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG
+      run: docker push ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG
 
     - name: Save artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: spring-petclinic-artifacts
         path: target/
       continue-on-error: true
 
     - name: Save test reports
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: test-reports
         path: target/surefire-reports
@@ -63,4 +62,4 @@ jobs:
 
     - name: Cleanup
       run: |
-        docker logout $DOCKER_REGISTRY_URL
+        docker logout ${{secrets.DOCKER_REGISTRY_URL}}
