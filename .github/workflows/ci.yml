@@ -24,6 +24,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '17'
+        distribution: 'adopt'
 
     - name: Build with Maven
       run: mvn -B package
@@ -35,7 +36,9 @@ jobs:
       run: |
         docker build -t $DOCKER_REGISTRY_URL:$TAG .
         docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_ACCESS_TOKEN }} -p ${{ secrets.JF_ACCESS_TOKEN }}
-        docker push $DOCKER_REGISTRY_URL:$TAG
+
+    - name: Push Docker Image to Docker Hub
+      run: docker push $DOCKER_REGISTRY_URL:$TAG
 
     - name: Cleanup
       run: |
