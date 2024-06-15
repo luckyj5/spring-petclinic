@@ -79,7 +79,7 @@ Push your changes to GitHub. The GitHub Actions pipeline will automatically run 
    ```
    docker load -i spring-petclinic.tar
 
-   docker run -p 8080:8080 spring-petclinic
+   docker run -p 8080:8080 <image>
    ```
 
 **Access the application**

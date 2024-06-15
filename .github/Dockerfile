@@ -17,4 +17,4 @@ EXPOSE 8181
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
 # Command arguments
-CMD ["--server.port=8181"]
+CMD ["--server.port=8080"]
