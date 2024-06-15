@@ -14,7 +14,7 @@ on:
       - main
 
 jobs:
-  build:
+  compile-test-build-docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,19 +27,39 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
 
-    - name: Build with Maven
+    # Make sure all dependencies are resolved
+    - name: Install Maven dependencies
+      run: mvn dependency:resolve || exit 1
+
+    - name: Compile the code
       run: mvn -B package
 
-    - name: Run tests
+    - name: Run Tests
       run: mvn -B test
 
-    - name: Build Docker image
-      run: |
-        docker build -t $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG .
-        echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} --password-stdin
+    - name: Login to Docker registry
+      run: echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} --password-stdin || exit 1
 
-    - name: Push Docker Image to Docker Hub
+    - name: Build Docker Image
+      run: docker build -t $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG . || exit 1
+        
+    - name: Push Docker Image to Artifactory
       run: docker push $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG
+
+    - name: Save artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: spring-petclinic-artifacts
+        path: target/
+      continue-on-error: true
+
+    - name: Save test reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-reports
+        path: target/surefire-reports
+      continue-on-error: true  
+
 
     - name: Cleanup
       run: |
