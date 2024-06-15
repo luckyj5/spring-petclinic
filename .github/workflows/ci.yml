@@ -40,7 +40,7 @@ jobs:
       run: echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login ${{secrets.DOCKER_REGISTRY_URL}} -u ${{ secrets.JF_USER }} --password-stdin || exit 1
 
     - name: Build Docker Image
-      run: docker build -t ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG -f .github/Dockerfile. || exit 1
+      run: docker build -t ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG -f .github/Dockerfile . || exit 1
         
     - name: Push Docker Image to Artifactory
       run: docker push ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG
