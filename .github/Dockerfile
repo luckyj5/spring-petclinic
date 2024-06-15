@@ -10,8 +10,8 @@ WORKDIR /app
 # Copy the JAR file
 COPY target/spring-petclinic-*-SNAPSHOT.jar app.jar
 
-# Make port 8181 available
-EXPOSE 8181
+# Make port 8080 available
+EXPOSE 8080
 
 # Run the application 
 ENTRYPOINT ["java", "-jar", "app.jar"]
