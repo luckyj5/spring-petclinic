@@ -37,7 +37,7 @@ jobs:
       run: mvn -B test
 
     - name: Login to Docker registry
-      run: echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} --password-stdin || exit 1
+      run: echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login ${{secrets.DOCKER_REGISTRY_URL}} -u ${{ secrets.JF_USER }} --password-stdin || exit 1
 
     - name: Build Docker Image
       run: docker build -t ${{secrets.DOCKER_REGISTRY_URL}}/$DOCKER_IMAGE:$TAG . || exit 1
