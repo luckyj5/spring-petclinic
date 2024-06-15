@@ -1,3 +1,4 @@
+[![CI/CD Pipeline](https://github.com/luckyj5/spring-petclinic/actions/workflows/ci.yml/badge.svg)](https://github.com/luckyj5/spring-petclinic/actions/workflows/ci.yml)
 # Spring PetClinic GitHub Actions Workflow
 
 This repository contains a GitHub Actions workflow for the Spring PetClinic project, including Docker packaging and integration with JFrog Artifactory.
