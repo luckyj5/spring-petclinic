@@ -1,7 +1,8 @@
 name: CI
 
 env:
-  DOCKER_REGISTRY_URL: luckyj5.jfrog.io/artifactory/spring-petclinic-docker
+  DOCKER_REGISTRY_URL: luckyj5.jfrog.io/spring-petclinic-docker
+  DOCKER_IMAGE: spring-petclinic
   TAG: latest
 
 on:
@@ -34,11 +35,11 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t $DOCKER_REGISTRY_URL:$TAG .
-        docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} -p ${{ secrets.JFROG_ACCESS_TOKEN }}
+        docker build -t $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG .
+        echo "${{secrets.JFROG_ACCESS_TOKEN}}" | docker login $DOCKER_REGISTRY_URL -u ${{ secrets.JF_USER }} --password-stdin
 
     - name: Push Docker Image to Docker Hub
-      run: docker push $DOCKER_REGISTRY_URL:$TAG
+      run: docker push $DOCKER_REGISTRY_URL/$DOCKER_IMAGE:$TAG
 
     - name: Cleanup
       run: |
