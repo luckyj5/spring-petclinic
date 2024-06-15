@@ -5,26 +5,27 @@ This repository contains a GitHub Actions workflow for the Spring PetClinic proj
 
 ## Repository Structure
 
-- **ci.yml:** Contains the Github Actions CI pipeline configuration.
-- **Dockerfile:** Defines the Docker image configuration for the Spring Pet Clinic project.
-- **README.md:** This file, explaining the project and how to run it.
+- **ci.yml:** Contains the Github Actions CI pipeline configuration defined in the `.github/workflows/ci.yml` file
+- **Dockerfile:** Defines the Docker image configuration for the Spring Pet Clinic project defined in the `.github/DOckerfile`.
+- **readme_cicd.md:** This file defined in `.github/readme_cicd.md`, explaining the project and how to run it.
 
 ## CI/CD Pipeline Flow
 
-### 1. Compile the Code
+#### 1. Compile the Code
 - The pipeline compiles the Spring Pet Clinic code using Maven.
 - Maven dependencies are resolved to ensure all required dependencies are available.
 
-### 2. Run Tests
+#### 2. Run Tests
 - After compiling the code, the pipeline runs tests to ensure the code functions as expected.
 - Test results are generated and stored for review.
 
-### 3. Package the Project as a Runnable Docker Image
+#### 3. Package the Project as a Runnable Docker Image
 - Once tests pass successfully, the pipeline packages the project into a runnable Docker image.
 - The Docker image is tagged with the version or tag specified in the pipeline.
 
-### 4. Push Docker image to Jfrog Artifactory
+#### 4. Push Docker image to Jfrog Artifactory
 - Integrate JFrog Artifactory into the pipeline for artifact management and storage.
+
 
 ## How to Run the Project
 
@@ -51,7 +52,7 @@ This repository contains a GitHub Actions workflow for the Spring PetClinic proj
 4. Open your browser and navigate to `http://localhost:8080/` to access the Spring PetClinic application.
 
 
-### 5. Run the Pipeline
+### Run the Pipeline
 
 Make sure to add the Docker Registry and JFrog credentials (DOCKER_REGISTRY_URL, JF_USER, JFROG_ACCESS_TOKEN) to the GitHub repository secrets.
 
@@ -64,6 +65,7 @@ Push your changes to GitHub. The GitHub Actions pipeline will automatically run 
 5. Log in to JFrog Artifactory Docker registry.
 6. Build the Docker image.
 7. Push the Docker image to JFrog Artifactory.
+8. Save artifacts and cleanup
 
 ## Using the Runnable Docker Image
 
@@ -83,7 +85,7 @@ Push your changes to GitHub. The GitHub Actions pipeline will automatically run 
 **Access the application**
    Open your browser and go to http://localhost:8080.
 
-   
+
 ## Additional Information
 
 - For more details on the Spring Pet Clinic project, refer to the official repository: [Spring Pet Clinic GitHub](https://github.com/spring-projects/spring-petclinic)
