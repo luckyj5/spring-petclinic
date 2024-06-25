@@ -59,6 +59,10 @@ jobs:
         path: target/surefire-reports
       continue-on-error: true  
 
+    - name: Upload Maven Artifacts to Artifactory
+      run: |
+        curl -u ${{ secrets.JF_USER }}:${{ secrets.JFROG_ACCESS_TOKEN }} -T target/*.jar "https://luckyj5.jfrog.io/artifactory/spring-petclinic-docker/"
+    
     - name: Cleanup
       run: |
         docker logout ${{secrets.DOCKER_REGISTRY_URL}}
